@@ -45,7 +45,13 @@ end
 
 desc 'Dumps output to a CSS file for testing'
 task :debug do
-  require 'sassc'
+  begin
+    require 'dartsass-ruby'
+  rescue LoadError
+    require 'sassc'
+  rescue LoadError
+    raise LoadError.new("bootstrap-rubygem requires a Sass engine. Please add dartsass-sprockets or sassc-rails to your dependencies.")
+  end
   require './lib/bootstrap'
   require 'term/ansicolor'
   require 'autoprefixer-rails'

@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 require 'autoprefixer-rails'
-require 'sassc-rails'
+begin
+  require 'dartsass-sprockets'
+rescue LoadError
+  raise LoadError.new("bootstrap-rubygem requires a Sass engine. Please add dartsass-sprockets or sassc-rails to your dependencies.")
+end
 
 module Bootstrap
   module Rails
